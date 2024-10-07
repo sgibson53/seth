@@ -98,5 +98,6 @@
         "spa": true
       }
     }
-  }
+  },
+  "implicitDependencies": ["about", "shop", "cart"]
 }

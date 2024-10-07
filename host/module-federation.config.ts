@@ -14,7 +14,14 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
-  remotes: ['shop cart about', 'shop', 'cart', 'about'],
+  remotes: ['shop', 'cart', 'about'],
+  shared: (name, config) => {
+    // Not using lodash at the time of this change, but this would cause lodash to be bundled into each host/remote
+    // separately (not tree-shaken) since if it is naturally a singleton, then nx will bundle all of lodash.
+    if (name === 'lodash') {
+      return false;
+    }
+  }
 };
 
 export default config;
