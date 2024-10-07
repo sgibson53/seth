@@ -5,6 +5,7 @@
   "prefix": "app",
   "sourceRoot": "host/src",
   "tags": [],
+  "implicitDependencies": ["about", "shop", "cart"],
   "targets": {
     "build": {
       "executor": "@nx/angular:webpack-browser",
@@ -97,7 +98,13 @@
         "port": 4200,
         "spa": true
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "rmdir /S /Q production && mkdir production && mkdir production\\about && mkdir production\\cart && mkdir production\\shop && xcopy dist\\host\\* production /E /I /y && xcopy dist\\shop\\* production\\shop /E /I /y && xcopy dist\\cart\\* production\\cart /E /I /y && xcopy dist\\about\\* production\\about /E /I /y && http-server -p 3000 -a localhost production"
+      }
     }
-  },
-  "implicitDependencies": ["about", "shop", "cart"]
+  }
 }
